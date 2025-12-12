@@ -4,6 +4,7 @@ import { Palette, Server, Bot, Check, Star, Code } from 'lucide-react';
 import { ServiceCategory, ServiceBundle } from '../types';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
+import GeometricLogo from './GeometricLogo';
 
 const Services: React.FC = () => {
   const { t } = useLanguage();
@@ -65,17 +66,28 @@ const Services: React.FC = () => {
   return (
     <section id="services" className="py-24 relative overflow-hidden">
       {/* Background Elements */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-brand-500/10 rounded-full blur-[100px] -z-10 pointer-events-none"
       />
 
+      {/* Blueprint Geometric Logo - Left Side */}
+      <motion.div
+        initial={{ opacity: 0, x: -50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 1 }}
+        className="absolute top-[30%] -left-[5%] md:left-[2%] z-0 hidden md:block"
+      >
+        <GeometricLogo />
+      </motion.div>
+
       <div className="max-w-7xl mx-auto px-6">
-        
+
         {/* Header */}
         <div className="text-center mb-20 relative z-10">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -97,7 +109,7 @@ const Services: React.FC = () => {
               </div>
               <h3 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white">{spec.title}</h3>
               <p className="text-gray-600 dark:text-gray-400 mb-8">{spec.description}</p>
-              
+
               <div className="mt-auto space-y-6">
                 {spec.items.map((item, idx) => (
                   <div key={idx} className="group">
@@ -117,12 +129,12 @@ const Services: React.FC = () => {
         <div className="relative">
           <div className="text-center mb-12">
             {/* Gradient Border Badge */}
-             <div className="inline-block relative p-[1px] rounded-full bg-gradient-to-r from-brand-300 via-brand-500 to-brand-300 mb-4">
-                <div className="px-3 py-1 rounded-full bg-white dark:bg-black/80 backdrop-blur-md">
-                  <span className="text-xs font-bold tracking-widest uppercase text-brand-600 dark:text-brand-300">
-                    {t.services.bundles.badge}
-                  </span>
-                </div>
+            <div className="inline-block relative p-[1px] rounded-full bg-gradient-to-r from-brand-300 via-brand-500 to-brand-300 mb-4">
+              <div className="px-3 py-1 rounded-full bg-white dark:bg-black/80 backdrop-blur-md">
+                <span className="text-xs font-bold tracking-widest uppercase text-brand-600 dark:text-brand-300">
+                  {t.services.bundles.badge}
+                </span>
+              </div>
             </div>
 
             <h3 className="text-3xl font-bold text-gray-900 dark:text-white">{t.services.bundles.title}</h3>
@@ -131,9 +143,9 @@ const Services: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
             {bundles.map((bundle, index) => (
-              <GlassCard 
-                key={bundle.id} 
-                delay={0.2 + (index * 0.1)} 
+              <GlassCard
+                key={bundle.id}
+                delay={0.2 + (index * 0.1)}
                 className={`p-8 relative ${bundle.recommended ? 'transform md:-translate-y-4' : ''}`}
               >
                 {/* Animated Gradient Border for Recommended Card */}
@@ -146,11 +158,11 @@ const Services: React.FC = () => {
                     {t.services.bundles.popular}
                   </div>
                 )}
-                
+
                 {/* Card Content Background (to sit on top of gradient border) */}
                 <div className={`h-full ${bundle.recommended ? 'bg-white/90 dark:bg-black/90 rounded-xl -m-7 p-7' : ''}`}>
                   <h4 className="text-2xl font-bold text-center mb-6 text-gray-900 dark:text-white">{bundle.title}</h4>
-                  
+
                   <ul className="space-y-4 mb-8">
                     {bundle.features.map((feat, idx) => (
                       <li key={idx} className="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-300">
@@ -160,11 +172,10 @@ const Services: React.FC = () => {
                     ))}
                   </ul>
 
-                  <button className={`w-full py-3 rounded-lg font-semibold transition-all ${
-                    bundle.recommended 
-                      ? 'bg-gradient-to-r from-brand-600 to-brand-400 text-white shadow-lg hover:shadow-brand-500/25' 
-                      : 'bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-white/20'
-                  }`}>
+                  <button className={`w-full py-3 rounded-lg font-semibold transition-all ${bundle.recommended
+                    ? 'bg-gradient-to-r from-brand-600 to-brand-400 text-white shadow-lg hover:shadow-brand-500/25'
+                    : 'bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-white/20'
+                    }`}>
                     {t.services.bundles.cta}
                   </button>
                 </div>

@@ -8,10 +8,10 @@ const Hero: React.FC = () => {
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 lg:pt-0">
-      
+
       {/* --- REVISED AURORA BOREALIS EFFECT (V3 - Lighter & Wavier) --- */}
       <div className="absolute inset-0 -z-10 w-full h-full pointer-events-none">
-        
+
         {/* Layer 1: Deep Base (Dark Teal/Forest) - The anchor */}
         <motion.div
           initial={{ x: "-10%", skewY: -5, opacity: 0.4 }}
@@ -72,7 +72,7 @@ const Hero: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-6 z-10 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          
+
           {/* LEFT COLUMN: Text Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -93,7 +93,7 @@ const Hero: React.FC = () => {
                 </span>
               </div>
             </motion.div>
-            
+
             {/* Typography scaled down from 5xl/7xl/8xl to 4xl/5xl/6xl/7xl */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight mb-8 text-gray-900 dark:text-white drop-shadow-sm leading-tight">
               José Miguel Díaz <br />
@@ -102,13 +102,13 @@ const Hero: React.FC = () => {
               </span>
             </h1>
 
-            <p 
+            <p
               className="text-lg text-gray-600 dark:text-gray-300 max-w-xl mb-10 leading-relaxed font-light"
               dangerouslySetInnerHTML={{ __html: t.hero.description }}
             />
 
             <div className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto">
-              <motion.a 
+              <motion.a
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 href="#portfolio"
@@ -119,7 +119,7 @@ const Hero: React.FC = () => {
               </motion.a>
 
               {/* Gradient Border Button */}
-              <motion.a 
+              <motion.a
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 href="#contact"
@@ -146,33 +146,31 @@ const Hero: React.FC = () => {
             <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-[400px] lg:h-[400px] group">
               {/* Glowing backdrop */}
               <div className="absolute inset-0 rounded-full bg-brand-500/30 blur-3xl group-hover:bg-brand-400/40 transition-colors duration-500" />
-              
-              {/* Floating Container */}
-              <motion.div
-                   animate={{ y: [0, -15, 0] }}
-                   transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                   className="relative w-full h-full"
-              >
-                   <img 
-                      src="/me.png" 
-                      alt="José Miguel Díaz Avatar" 
-                      className="w-full h-full object-cover rounded-full border-4 border-white/20 dark:border-white/10 shadow-2xl relative z-10 backdrop-blur-sm"
-                   />
-                   
-                   {/* Decorative Rotating Ring 1 */}
-                   <motion.div 
-                     animate={{ rotate: 360 }}
-                     transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                     className="absolute inset-[-20px] rounded-full border border-brand-400/20 dark:border-brand-300/10 border-dashed" 
-                   />
 
-                   {/* Decorative Rotating Ring 2 (Counter) */}
-                   <motion.div 
-                     animate={{ rotate: -360 }}
-                     transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                     className="absolute inset-[-40px] rounded-full border border-brand-500/10 dark:border-brand-300/5 opacity-50 scale-90" 
-                   />
-              </motion.div>
+              {/* Floating Container - Animation Removed */}
+              <div
+                className="relative w-full h-full"
+              >
+                <img
+                  src="/home-hero-avatar.webp"
+                  alt="José Miguel Díaz Avatar"
+                  className="w-full h-full object-cover rounded-full border-4 border-white/20 dark:border-white/10 shadow-2xl relative z-10 backdrop-blur-sm"
+                />
+
+                {/* Decorative Rotating Ring 1 */}
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                  className="absolute inset-[-20px] rounded-full border border-brand-400/20 dark:border-brand-300/10 border-dashed"
+                />
+
+                {/* Decorative Rotating Ring 2 (Counter) */}
+                <motion.div
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+                  className="absolute inset-[-40px] rounded-full border border-brand-500/10 dark:border-brand-300/5 opacity-50 scale-90"
+                />
+              </div>
             </div>
           </motion.div>
 

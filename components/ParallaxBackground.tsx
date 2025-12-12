@@ -8,7 +8,7 @@ interface ParallaxBackgroundProps {
 
 const ParallaxBackground: React.FC<ParallaxBackgroundProps> = ({ theme }) => {
   const { scrollY } = useScroll();
-  
+
   // Smooth scroll values
   const springConfig = { stiffness: 100, damping: 30, bounce: 0 };
   const scrollYSpring = useSpring(scrollY, springConfig);
@@ -21,9 +21,9 @@ const ParallaxBackground: React.FC<ParallaxBackgroundProps> = ({ theme }) => {
   const rotate2 = useTransform(scrollYSpring, [0, 2000], [0, -45]);
 
   // --- Geometric Shapes Movements ---
-  const yGeo1 = useTransform(scrollYSpring, [0, 2000], [0, -500]); 
+  const yGeo1 = useTransform(scrollYSpring, [0, 2000], [0, -500]);
   const rotateGeo1 = useTransform(scrollYSpring, [0, 2000], [0, 180]);
-  
+
   const yGeo2 = useTransform(scrollYSpring, [0, 2000], [0, 300]);
   const scaleGeo2 = useTransform(scrollYSpring, [0, 1000], [1, 1.2]);
 
@@ -52,7 +52,7 @@ const ParallaxBackground: React.FC<ParallaxBackgroundProps> = ({ theme }) => {
 
   return (
     <div className="fixed inset-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-      
+
       {/* 1. Base Gradient Layer */}
       <div className={`absolute inset-0 transition-colors duration-500 ${theme === Theme.DARK ? 'mesh-gradient-bg' : 'light-mesh-bg'}`} />
 
@@ -95,7 +95,7 @@ const ParallaxBackground: React.FC<ParallaxBackgroundProps> = ({ theme }) => {
               <stop offset="100%" stopColor="#115e59" stopOpacity="0.95" /> {/* brand-800 */}
             </linearGradient>
             <marker id="arrowhead" markerWidth="5" markerHeight="5" refX="2.5" refY="2.5" orient="auto">
-                <polygon points="0 0, 5 2.5, 0 5" fill="white" fillOpacity="0.5" />
+              <polygon points="0 0, 5 2.5, 0 5" fill="white" fillOpacity="0.5" />
             </marker>
           </defs>
 
@@ -108,69 +108,57 @@ const ParallaxBackground: React.FC<ParallaxBackgroundProps> = ({ theme }) => {
 
           {/* Construction Guidelines (Rotating) */}
           <motion.g
-             animate={{ rotate: 360 }}
-             transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-             style={{ originX: "100px", originY: "100px" }}
+            animate={{ rotate: 360 }}
+            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+            style={{ originX: "100px", originY: "100px" }}
           >
-             <circle cx="100" cy="100" r="60" stroke="white" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.4" />
-             <line x1="100" y1="20" x2="100" y2="180" stroke="white" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.3" />
-             <line x1="20" y1="100" x2="180" y2="100" stroke="white" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.3" />
+            <circle cx="100" cy="100" r="60" stroke="white" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.4" />
+            <line x1="100" y1="20" x2="100" y2="180" stroke="white" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.3" />
+            <line x1="20" y1="100" x2="180" y2="100" stroke="white" strokeWidth="0.5" strokeDasharray="4 4" opacity="0.3" />
           </motion.g>
 
           {/* Measurement Lines (Static/Tech feel) */}
           <g opacity="0.6">
             <line x1="170" y1="40" x2="170" y2="160" stroke="white" strokeWidth="0.5" markerEnd="url(#arrowhead)" markerStart="url(#arrowhead)" />
             <text x="175" y="100" fill="white" fontSize="8" fontFamily="monospace" style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}>120px</text>
-            
+
             <line x1="40" y1="170" x2="160" y2="170" stroke="white" strokeWidth="0.5" markerEnd="url(#arrowhead)" markerStart="url(#arrowhead)" />
             <text x="90" y="182" fill="white" fontSize="8" fontFamily="monospace">120px</text>
           </g>
 
-          {/* THE LOGO (Compass Style) - Animated Drawing */}
+          {/* THE LOGO (SoulMarket Hex Node Style) - Animated Drawing */}
           <g transform="translate(100, 100)" className="stroke-white" fill="none" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-             {/* 1. The Head/Loop */}
-             <motion.path 
-                d="M 0 -35 L 0 -20 M 0 -20 A 12 12 0 1 1 0.1 -20" 
-                variants={draw}
-                initial="hidden"
-                animate="visible"
-                custom={1}
-             />
-             
-             {/* 2. Left Leg */}
-             <motion.path 
-                d="M -4 -8 L -30 45" 
-                variants={draw}
-                initial="hidden"
-                animate="visible"
-                custom={2}
-             />
+            {/* 1. Central Connections (Y-Shape) */}
+            <motion.path
+              d="M 0 0 L 0 -40 M 0 0 L -35 20 M 0 0 L 35 20"
+              variants={draw}
+              initial="hidden"
+              animate="visible"
+              custom={1}
+            />
 
-             {/* 3. Right Leg */}
-             <motion.path 
-                d="M 4 -8 L 30 45" 
-                variants={draw}
-                initial="hidden"
-                animate="visible"
-                custom={2}
-             />
+            {/* 2. Outer Hexagon Connections */}
+            <motion.path
+              d="M 0 -40 L -35 -20 L -35 20 L 0 40 L 35 20 L 35 -20 Z"
+              variants={draw}
+              initial="hidden"
+              animate="visible"
+              custom={2}
+            />
 
-             {/* 4. The Crossbar (Arc) */}
-             <motion.path 
-                d="M -20 25 Q 0 35 20 25" 
-                variants={draw}
-                initial="hidden"
-                animate="visible"
-                custom={3}
-             />
-             
-             {/* 5. Center Axis Point */}
-             <motion.circle 
-                cx="0" cy="-20" r="3" fill="white" stroke="none"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.5, type: "spring", repeat: Infinity, repeatType: "reverse", repeatDelay: 4.5, duration: 0.5 }}
-             />
+            {/* 3. Nodes (Circles) */}
+            {/* Center */}
+            <motion.circle cx="0" cy="0" r="4" fill="white" stroke="none" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.5 }} />
+
+            {/* Inner Y Ends */}
+            <motion.circle cx="0" cy="-40" r="3" fill="white" stroke="none" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.7 }} />
+            <motion.circle cx="-35" cy="20" r="3" fill="white" stroke="none" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.8 }} />
+            <motion.circle cx="35" cy="20" r="3" fill="white" stroke="none" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.9 }} />
+
+            {/* Outer Hex points */}
+            <motion.circle cx="-35" cy="-20" r="2" fill="white" stroke="none" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.0 }} />
+            <motion.circle cx="0" cy="40" r="2" fill="white" stroke="none" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.1 }} />
+            <motion.circle cx="35" cy="-20" r="2" fill="white" stroke="none" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.2 }} />
           </g>
         </svg>
       </motion.div>
@@ -181,19 +169,19 @@ const ParallaxBackground: React.FC<ParallaxBackgroundProps> = ({ theme }) => {
         className="absolute top-[15%] right-[5%] opacity-60 dark:opacity-40 text-brand-600 dark:text-brand-400"
       >
         <svg width="300" height="300" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M100 2L184.87 51V149L100 198L15.13 149V51L100 2Z" stroke="currentColor" strokeWidth="1.5" strokeDasharray="10 5" />
-            <circle cx="100" cy="100" r="4" fill="currentColor" />
-            <circle cx="100" cy="2" r="2" fill="currentColor" />
-            <circle cx="184.87" cy="51" r="2" fill="currentColor" />
-            <circle cx="184.87" cy="149" r="2" fill="currentColor" />
-            <circle cx="100" cy="198" r="2" fill="currentColor" />
-            <circle cx="15.13" cy="149" r="2" fill="currentColor" />
-            <circle cx="15.13" cy="51" r="2" fill="currentColor" />
+          <path d="M100 2L184.87 51V149L100 198L15.13 149V51L100 2Z" stroke="currentColor" strokeWidth="1.5" strokeDasharray="10 5" />
+          <circle cx="100" cy="100" r="4" fill="currentColor" />
+          <circle cx="100" cy="2" r="2" fill="currentColor" />
+          <circle cx="184.87" cy="51" r="2" fill="currentColor" />
+          <circle cx="184.87" cy="149" r="2" fill="currentColor" />
+          <circle cx="100" cy="198" r="2" fill="currentColor" />
+          <circle cx="15.13" cy="149" r="2" fill="currentColor" />
+          <circle cx="15.13" cy="51" r="2" fill="currentColor" />
         </svg>
       </motion.div>
 
       {/* Shape 2: Thin Circle Ring (Middle Left) */}
-      <motion.div 
+      <motion.div
         style={{ y: yGeo2, scale: scaleGeo2 }}
         className="absolute top-[40%] left-[-10%] w-[500px] h-[500px] rounded-full border border-brand-300/30 dark:border-brand-100/10 opacity-60 dark:opacity-40"
       >
@@ -201,15 +189,15 @@ const ParallaxBackground: React.FC<ParallaxBackgroundProps> = ({ theme }) => {
       </motion.div>
 
       {/* Shape 3: Floating Square (Bottom Right) */}
-      <motion.div 
+      <motion.div
         style={{ y: yGeo3, rotate: rotateGeo3 }}
         className="absolute bottom-[15%] right-[15%] w-40 h-40 border-2 border-brand-400/30 dark:border-brand-400/20 rounded-3xl backdrop-blur-[2px] opacity-70 dark:opacity-50"
       >
         <div className="absolute inset-0 bg-white/5 dark:bg-white/5" />
       </motion.div>
-      
+
       {/* 4. Texture Overlay (Noise) */}
-      <div 
+      <div
         className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 dark:opacity-10 mix-blend-overlay pointer-events-none"
       />
     </div>
